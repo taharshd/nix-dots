@@ -20,6 +20,7 @@
     libreoffice-qt6
     gh
     mpv
+    wlogout
   ];
   
   environment.sessionVariables = {

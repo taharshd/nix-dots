@@ -1,0 +1,28 @@
+{ pkgs, ... }:
+
+{
+  imports = [
+    # ../hm/default.nix # Make sure this is NOT imported here
+    # ... other system imports ...
+  ];
+
+  environment.systemPackages = with pkgs; [
+    vscode
+    wget
+		kitty
+		fastfetch
+		gcc
+		hyprlock
+		pywal
+		swaynotificationcenter
+		ags
+		pciutils
+    libreoffice-qt6
+    gh
+    mpv
+  ];
+  
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
+}

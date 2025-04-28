@@ -22,19 +22,28 @@
         source = lib.mkForce ../config/electron-flags.conf;
       };
       ".config/hypr/monitors.conf" = {
-        source = lib.mkForce ../config/monitors.conf;
+        source = lib.mkForce ../config/hypr/monitors.conf;
       };
       ".config/hypr/hyde.conf" = {
-        source = lib.mkForce ../config/hyprhyde.conf;
+        source = lib.mkForce ../config/hypr/hyde.conf;
       };
       ".config/kitty/hyde.conf" = {
-        source = lib.mkForce ../config/kittyhyde.conf;
+        source = lib.mkForce ../config/kitty/hyde.conf;
       };
       ".zshrc" = {
         source = lib.mkForce ../config/.zshrc;
       };
       ".config/hypr/windowrules.conf" = {
-        source = lib.mkForce ../config/windowrules.conf;
+        source = lib.mkForce ../config/hypr/windowrules.conf;
+      };
+      ".config/hypr/keybindings.conf" = {
+        source = lib.mkForce ../config/hypr/keybindings.conf;
+      };
+     # ".config/waybar/modules/style.css" = {
+     #   source = lib.mkForce ../config/waybar/modules/style.css;
+     # };
+      ".config/waybar/style.css" = {
+        source = ../config/waybar/style.css;
       };
     };
 

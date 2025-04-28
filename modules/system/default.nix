@@ -21,6 +21,14 @@
     gh
     mpv
     wlogout
+    nodejs
+    tree
+    btop
+    direnv
+    prisma
+    openssl
+    python3
+    prisma-engines
   ];
   
   environment.sessionVariables = {

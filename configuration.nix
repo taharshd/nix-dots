@@ -44,6 +44,8 @@ in
      colorScheme = "mocha";
    };
 
+  services.postgresql.enable = true;
+
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = false;

@@ -15,6 +15,11 @@ HELPDIR="/nix/store/k6n88x9z7cqd21j0rrjq44bm0ralf3yp-zsh-5.9/share/zsh/$ZSH_VERS
 source /nix/store/g8r466ybdqypia6nlj0znsffgwk3r6kh-zsh-autosuggestions-0.7.1/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 
+# Disable gpu for electron apps
+alias code="code --disable-gpu"
+alias discord="discord --disable-gpu"
+alias dots="cd ~/Desktop/nix-dots/"
+alias school="cd ~/Desktop/Work/School/"
 
 # oh-my-zsh extra settings for plugins
 

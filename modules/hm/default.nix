@@ -33,6 +33,9 @@
       ".zshrc" = {
         source = lib.mkForce ../config/.zshrc;
       };
+      ".config/hypr/windowrules.conf" = {
+        source = lib.mkForce ../config/windowrules.conf;
+      };
     };
 
 
@@ -97,7 +100,7 @@
         webcord.enable = true; # enable webcord module
         vesktop.enable = true; # enable vesktop module
       };
-      spotify.enable = true; # enable spotify module
+      spotify.enable = false; # enable spotify module
       swww.enable = true; # enable swww wallpaper daemon
       terminals = {
         enable = true; # enable terminals module

@@ -29,6 +29,7 @@
     openssl
     python3
     prisma-engines
+    jupyter
   ];
   
   environment.sessionVariables = {

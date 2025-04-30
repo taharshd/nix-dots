@@ -20,6 +20,7 @@ alias code="code --disable-gpu"
 alias discord="discord --disable-gpu"
 alias dots="cd ~/Desktop/nix-dots/"
 alias school="cd ~/Desktop/Work/School/"
+alias pls="sudo"
 
 # oh-my-zsh extra settings for plugins
 

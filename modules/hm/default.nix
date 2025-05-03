@@ -1,51 +1,52 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   imports = [
     # ./example.nix - add your modules here
   ];
-
   # home-manager options go here
   home.packages = [
     # pkgs.vscode-fhs
   ];
-
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
   };
   
-    home.file = {
-    # Path is relative to this hm/default.nix file
-    # Adjust if you placed your source file elsewhere
-      ".config/electron-flags.conf" = {
-        source = lib.mkForce ../config/electron-flags.conf;
-      };
-      ".config/hypr/monitors.conf" = {
-        source = lib.mkForce ../config/hypr/monitors.conf;
-      };
-      ".config/hypr/hyde.conf" = {
-        source = lib.mkForce ../config/hypr/hyde.conf;
-      };
-      ".config/kitty/hyde.conf" = {
-        source = lib.mkForce ../config/kitty/hyde.conf;
-      };
-      ".zshrc" = {
-        source = lib.mkForce ../config/.zshrc;
-      };
-      ".config/hypr/windowrules.conf" = {
-        source = lib.mkForce ../config/hypr/windowrules.conf;
-      };
-      ".config/hypr/keybindings.conf" = {
-        source = lib.mkForce ../config/hypr/keybindings.conf;
-      };
-     # ".config/waybar/modules/style.css" = {
-     #   source = lib.mkForce ../config/waybar/modules/style.css;
-     # };
-      ".config/waybar/style.css" = {
-        source = ../config/waybar/style.css;
-      };
+  home.file = {
+  # Path is relative to this hm/default.nix filez
+  # Adjust if you placed your source file elsewhere
+    ".config/electron-flags.conf" = {
+      source = lib.mkForce ../config/electron-flags.conf;
     };
+    ".config/hypr/monitors.conf" = {
+      source = lib.mkForce ../config/hypr/monitors.conf;
+    };
+    ".config/hypr/hyde.conf" = {
+      source = lib.mkForce ../config/hypr/hyde.conf;
+    };
+    ".config/kitty/hyde.conf" = {
+      source = lib.mkForce ../config/kitty/hyde.conf;
+    };
+    ".zshrc" = {
+      source = lib.mkForce ../config/.zshrc;
+    };
+    ".config/hypr/windowrules.conf" = {
+      source = lib.mkForce ../config/hypr/windowrules.conf;
+    };
+    ".config/hypr/keybindings.conf" = {
+      source = lib.mkForce ../config/hypr/keybindings.conf;
+    };
+    ".config/hypr/userprefs.conf" = {
+      source = lib.mkForce ../config/hypr/userprefs.conf;
+    };
+    # ".config/waybar/modules/style.css" = {
+    #   source = lib.mkForce ../config/waybar/modules/style.css;
+    # };
+    #".config/waybar/style.css" = {
+    #  source = lib.mkForce ../config/waybar/style.css;
+    #};
+  };
 
 
   # hydenix home-manager options go here
@@ -66,17 +67,10 @@
         default = "vim"; # default text editor
       };
       fastfetch.enable = true; # fastfetch configuration
-      firefox = {
-        enable = true; # enable firefox module
-        useHydeConfig = false; # use hyde firefox configuration and extensions
-        useUserChrome = true; # if useHydeConfig is true, apply hyde userChrome CSS customizations
-        useUserJs = true; # if useHydeConfig is true, apply hyde user.js preferences
-        useExtensions = true; # if useHydeConfig is true, install hyde firefox extensions
-      };
       git = {
         enable = true; # enable git module
-        name = null; # git user name eg "John Doe"
-        email = null; # git user email eg "john.doe@example.com"
+        name = "taharshd"; # git user name eg "John Doe"
+        email = "trdev4@gmail.com"; # git user email eg "john.doe@example.com"
       };
       hyde.enable = true; # enable hyde module
       hyprland.enable = true; # enable hyprland module
@@ -101,7 +95,7 @@
         zsh.configText = ""; # zsh config text
         bash.enable = false; # enable bash shell
         fish.enable = false; # enable fish shell
-        pokego.enable = true; # enable Pokemon ASCII art scripts
+        pokego.enable = false; # enable Pokemon ASCII art scripts
       };
       social = {
         enable = true; # enable social module
@@ -121,8 +115,48 @@
       
       theme = {
         enable = true; # enable theme module
-        active = "Catppuccin Mocha"; # active theme name
+        active = "Pixel Dream"; # active theme name
         themes = [
+          "AbyssGreen"
+          "Abyssal-Wave"
+          "Another World"
+          "Bad Blood"
+          "BlueSky"
+          "Cat Latte"
+          "Cosmic Blue"
+          "Crimson Blade"
+          "Decay Green"
+          "DoomBringers"
+          "Dracula"
+          "Edge Runner"
+          "Eternal Arctic"
+          "Ever Blushing"
+          "Frosted Glass"
+          "Graphite Mono"
+          "Green Lush"
+          "Greenify"
+          "Gruvbox Retro"
+          "Ice Age"
+          "Mac OS"
+          "Material Sakura"
+          "Monokai"
+          "Monterey Frost"
+          "Moonlight"
+          "Nordic Blue"
+          "One Dark"
+          "Oxo Carbon"
+          "Paranoid Sweet"
+          "Pixel Dream"
+          "Rain Dark"
+          "Red Stone"
+          "Rosé Pine"
+          "Solarized Dark"
+          "Synth Wave"
+          "Tokyo Night"
+          "Vanta Black"
+          "Windows 11"
+          "Scarlet Night"
+          "Sci-fi"
           "Catppuccin Mocha"
           "Catppuccin Latte"
         ]; # default enabled themes, full list in https://github.com/richen604/hydenix/tree/main/hydenix/sources/themes

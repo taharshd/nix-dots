@@ -30,6 +30,8 @@
     python3
     prisma-engines
     jupyter
+    pywalfox
+    pywal
   ];
   
   environment.sessionVariables = {

@@ -4,7 +4,7 @@
   system,
   config,
   spicetify,
-  pkgs,
+  ##pkgs,
   ...
 }:
 let
@@ -18,6 +18,10 @@ let
     config.allowUnfree = true;
     overlays = [
       inputs.hydenix.lib.overlays
+      inputs.nur.overlays.default
+
+      (import ./overlays/customPkgs.nix)
+
       (final: prev: {
         userPkgs = import inputs.nixpkgs {
           # --- Explicitly assign system = currentSystem here too ---
@@ -31,7 +35,9 @@ let
 in
 {
 
-  
+  fonts.packages = with pkgs; [
+    helvetica-neue-lt-std
+  ];
 
   programs.spicetify = {
      enable = true;
@@ -40,8 +46,8 @@ in
        hidePodcasts
        shuffle # shuffle+ (special characters are sanitized out of extension names)
      ];
-     theme = spicePkgs.themes.catppuccin;
-     colorScheme = "mocha";
+    theme = spicePkgs.themes.text;
+    colorScheme = "CatppuccinMacchiato";
    };
 
   services.postgresql.enable = true;
@@ -51,6 +57,8 @@ in
   hardware.nvidia.open = false;
  # hardware.nvidia.modesetting.enable = true;
 	
+  hardware.graphics.enable = true;
+
   hardware.nvidia.prime = {
     offload.enable = false; # Disable PRIME offload
     sync.enable = false;    # Disable PRIME sync (if applicable/enabled by default)
@@ -102,7 +110,7 @@ in
   ];
 
   home-manager = {
-    useGlobalPkgs = true;
+    useGlobalPkgs = false;
     useUserPackages = true;
     extraSpecialArgs = {
       inherit inputs;
@@ -111,7 +119,7 @@ in
       system = currentSystem;
     };
 
-    backupFileExtension = "hm-backup";
+    backupFileExtension = "backup";
 
     #! EDIT THIS USER (must match users defined below)
     users."harth" =
@@ -121,7 +129,13 @@ in
           inputs.hydenix.lib.homeModules
           # Nix-index-database - for comma and command-not-found
           inputs.nix-index-database.hmModules.nix-index
+
+          inputs.textfox.homeManagerModules.textfox
+
+          inputs.nur.modules.homeManager.default
+
           ./modules/hm
+          ./modules/hm/gui
         ];
       };
   };

@@ -1,22 +1,8 @@
-{ inputs, system, config, spicetify, ... }:
+{ config, pkgs, lib, inputs, self, HOSTNAME, system, spicetify, ... }:
+
 let
-  currentSystem = system;
-  pkgs = import inputs.pkgs {
-    system = currentSystem;
-    config.allowUnfree = true;
-    overlays = [
-      inputs.nur.overlays.default
-      inputs.nix-vscode-extensions.overlays.default
-      (import ./overlays/customPkgs.nix)
-      (final: prev: {
-        userPkgs = import inputs.nixpkgs {
-          system = currentSystem;
-          config.allowUnfree = true;
-        };
-      })
-    ];
-  };
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
+  spicePkgs =
+    inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
 in
 {
   # System settings
@@ -106,7 +92,7 @@ in
     extraSpecialArgs = {
       inherit inputs;
       pkgs = pkgs;
-      system = currentSystem;
+      system = system;
     };
     backupFileExtension = "backup";
     users."harth" = { ... }: {
@@ -124,6 +110,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ./modules/system
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   system.stateVersion = "25.05";

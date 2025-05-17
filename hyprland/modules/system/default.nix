@@ -34,6 +34,8 @@
     pywal
     obsidian
     kdePackages.kcalc
+    flex
+    bison
   ];
   
   environment.sessionVariables = {

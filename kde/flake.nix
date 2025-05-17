@@ -1,5 +1,5 @@
 {
-  description = "template for hydenix";
+  #description = "NixOS configuration flake for ${HOSTNAME}"; # Updated description
 
   inputs = {
     # User's nixpkgs - for user packages
@@ -20,6 +20,12 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
 
     nur = {
       url = "github:nix-community/NUR";
@@ -60,10 +66,16 @@
     };
 
     textfox.url = "github:adriankarlen/textfox";
+
+    # If you use Home Manager as a NixOS module directly in the flake, add its input:
+    # home-manager = {
+    #   url = "github:nix-community/home-manager";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
-    { ... }@inputs:
+    { self, ... }@inputs: # Added self here to pass to specialArgs
     let
       HOSTNAME = "harth";
       # --- Define system explicitly ---
@@ -91,12 +103,9 @@
         name: pkgName: src:
         pkgs.stdenvNoCC.mkDerivation {
           inherit name src;
-
           unpackPhase = unpackPhase pkgName;
-
           buildInputs = commonBuildInputs;
           setSourceRoot = "sourceRoot=`pwd`";
-
           installPhase =
             ''runHook preInstall''
             + commonInstall
@@ -104,7 +113,7 @@
               find -name \*.otf -exec mv {} "$out/share/fonts/opentype/" \;
               find -name \*.ttf -exec mv {} "$out/share/fonts/truetype/" \;
             ''
-            + ''runHook preInstall'';
+            + ''runHook postInstall''; # Corrected from preInstall to postInstall
         }
       );
 
@@ -112,21 +121,16 @@
         name: pkgName: src:
         pkgs.stdenvNoCC.mkDerivation {
           inherit name src;
-
           unpackPhase = unpackPhase pkgName;
-
           buildInputs =
             commonBuildInputs
             ++ builtins.attrValues { inherit (pkgs) parallel nerd-font-patcher; };
-
           setSourceRoot = "sourceRoot=`pwd`";
-
           buildPhase = ''
             runHook preBuild
             find -name \*.ttf -o -name \*.otf -print0 | parallel --will-cite -j $NIX_BUILD_CORES -0 nerd-font-patcher --no-progressbars -c {}
             runHook postBuild
           '';
-
           installPhase =
             ''runHook preInstall''
             + commonInstall
@@ -134,15 +138,25 @@
               find -name \*.otf -maxdepth 1 -exec mv {} "$out/share/fonts/opentype/" \;
               find -name \*.ttf -maxdepth 1 -exec mv {} "$out/share/fonts/truetype/" \;
             ''
-            + ''runHook preInstall'';
+            + ''runHook postInstall''; # Corrected from preInstall to postInstall
         }
       );
     in
     {
-      
-      nixosConfigurations.nixos = hydenixConfig;
-      nixosConfigurations.${HOSTNAME} = hydenixConfig;
+      nixosConfigurations.${HOSTNAME} = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs self HOSTNAME system;
+        };
+        modules = [
+          ./configuration.nix
+          # if you use home-manager as a module:
+          inputs.home-manager.nixosModules.home-manager
+          inputs.spicetify-nix.nixosModules.spicetify
+        ];
+      };
 
+      # Your custom font packages remain the same
       sf-pro = makeAppleFont "sf-pro" "SF Pro Fonts.pkg" inputs.sf-pro;
       sf-pro-nerd = makeNerdAppleFont "sf-pro-nerd" "SF Pro Fonts.pkg" inputs.sf-pro;
 
@@ -157,15 +171,14 @@
 
       sf-armenian = makeAppleFont "sf-armenian" "SF Armenian Fonts.pkg" inputs.sf-armenian;
       sf-armenian-nerd = makeNerdAppleFont "sf-armenian-nerd" "SF Armenian Fonts.pkg" inputs.sf-armenian;
-      
+
       sf-georgian = makeAppleFont "sf-georgian" "SF Georgian Fonts.pkg" inputs.sf-georgian;
       sf-georgian-nerd = makeNerdAppleFont "sf-georgian-nerd" "SF Georgian Fonts.pkg" inputs.sf-georgian;
-      
+
       sf-hebrew = makeAppleFont "sf-hebrew" "SF Hebrew Fonts.pkg" inputs.sf-hebrew;
       sf-hebrew-nerd = makeNerdAppleFont "sf-hebrew-nerd" "SF Hebrew Fonts.pkg" inputs.sf-hebrew;
 
       ny = makeAppleFont "ny" "NY Fonts.pkg" inputs.ny;
       ny-nerd = makeNerdAppleFont "ny-nerd" "NY Fonts.pkg" inputs.ny;
-
     };
 }

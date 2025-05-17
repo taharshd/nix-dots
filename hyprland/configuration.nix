@@ -46,8 +46,8 @@ in
        hidePodcasts
        shuffle # shuffle+ (special characters are sanitized out of extension names)
      ];
-    theme = spicePkgs.themes.text;
-    colorScheme = "CatppuccinMacchiato";
+    # theme = spicePkgs.themes.text;
+    colorScheme = "Ocean";
    };
 
   services.postgresql.enable = true;
@@ -55,6 +55,8 @@ in
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = false;
+  # Suspend / wakeup issues
+  hardware.nvidia.powerManagement.enable = true;
  # hardware.nvidia.modesetting.enable = true;
 	
   hardware.graphics.enable = true;
@@ -130,7 +132,7 @@ in
           # Nix-index-database - for comma and command-not-found
           inputs.nix-index-database.hmModules.nix-index
 
-          inputs.textfox.homeManagerModules.textfox
+          # inputs.textfox.homeManagerModules.textfox
 
           inputs.nur.modules.homeManager.default
 

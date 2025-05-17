@@ -69,7 +69,7 @@
       flake = false;
     };
 
-    textfox.url = "github:adriankarlen/textfox";
+   # textfox.url = "github:adriankarlen/textfox";
   };
 
   outputs =

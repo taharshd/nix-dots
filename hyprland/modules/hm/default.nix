@@ -46,9 +46,9 @@
     ".config/hypr/keybindings.conf" = {
       source = lib.mkForce ../config/hypr/keybindings.conf;
     };
-    ".config/hypr/userprefs.conf" = {
-      source = lib.mkForce ../config/hypr/userprefs.conf;
-    };
+    #".config/hypr/userprefs.conf" = {
+    #  source = lib.mkForce ../config/hypr/userprefs.conf;
+    #};
     # ".config/waybar/modules/style.css" = {
     #   source = lib.mkForce ../config/waybar/modules/style.css;
     # };
@@ -124,7 +124,6 @@
       
       theme = {
         enable = true; # enable theme module
-        active = "Pixel Dream"; # active theme name
         themes = [
           "AbyssGreen"
           "Abyssal-Wave"

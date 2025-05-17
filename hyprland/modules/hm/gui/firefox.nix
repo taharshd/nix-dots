@@ -5,7 +5,6 @@
 
     profiles = {
       harth = {
-        userChrome = lib.mkAfter textfoxTabOverride;
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           ublock-origin
           vimium

@@ -19,7 +19,7 @@ let
     overlays = [
       inputs.hydenix.lib.overlays
       inputs.nur.overlays.default
-
+      inputs.nix-vscode-extensions.overlays.default
       (import ./overlays/customPkgs.nix)
 
       (final: prev: {

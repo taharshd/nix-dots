@@ -1,13 +1,18 @@
-{ pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, system,  ... }:
 
 {
   imports = [
     # ./example.nix - add your modules here
   ];
+
+  hydenix.hm.editors.vscode.enable = false;
+
   # home-manager options go here
-  home.packages = [
-    # pkgs.vscode-fhs
-  ];
+  #home.packages = [
+  #  (pkgs.vscode-with-extensions.override {
+  #    vscodeExtensions = extensions;
+  #  })
+  #];
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
@@ -16,6 +21,10 @@
   home.file = {
   # Path is relative to this hm/default.nix filez
   # Adjust if you placed your source file elsewhere
+    #".config/Code/User/settings.json" = {
+    #  source = lib.mkForce ../config/Code/User/settings.json;
+    #};
+
     ".config/electron-flags.conf" = {
       source = lib.mkForce ../config/electron-flags.conf;
     };
@@ -62,7 +71,7 @@
       editors = {
         enable = true; # enable editors module
         neovim = true; # enable neovim module
-        vscode.enable = false;
+        #vscode.enable = false;
         vim = true; # enable vim module
         default = "vim"; # default text editor
       };

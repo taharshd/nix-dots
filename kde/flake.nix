@@ -5,14 +5,9 @@
     # User's nixpkgs - for user packages
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Hydenix and its nixpkgs - kept separate to avoid conflicts
-    hydenix = {
-      # Available inputs:
-      # Main: github:richen604/hydenix
-      # Dev: github:richen604/hydenix/dev
-      # Commit: github:richen604/hydenix/<commit-hash>
-      # Version: github:richen604/hydenix/v1.0.0
-      url = "github:richen604/hydenix";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     spicetify-nix = {
@@ -73,19 +68,6 @@
       HOSTNAME = "harth";
       # --- Define system explicitly ---
       system = "x86_64-linux"; # Or "aarch64-linux", etc.
-
-
-      hydenixConfig = inputs.hydenix.inputs.hydenix-nixpkgs.lib.nixosSystem {
-        # --- Pass explicit system ---
-        inherit system;
-        specialArgs = {
-          inherit inputs system; # Pass system in specialArgs too
-        };
-        modules = [
-          ./configuration.nix
-          inputs.spicetify-nix.nixosModules.spicetify
-        ];
-      };
 
       pkgs = inputs.nixpkgs.legacyPackages.${system};
 

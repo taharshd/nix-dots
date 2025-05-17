@@ -32,6 +32,8 @@
     jupyter
     pywalfox
     pywal
+    obsidian
+    kdePackages.kcalc
   ];
   
   environment.sessionVariables = {
